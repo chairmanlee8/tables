@@ -1,0 +1,54 @@
+tables
+======
+
+The tables application allows for Excel-like display and manipulation of tabular
+data. The underlying data format is columnar plaintext, with functions and 
+formulae stored inline.
+
+In this file format, column breaks are ideally determined by column headers,
+which are mandatory by implication. Since column header cells themselves may
+contain freeform plaintext, we use lines (either single dash [-] or double dash
+[=]) on the second row to delimit columns.
+
+Example file:
+
+    # Sample table
+    
+    TAX(p) = p * 0.1
+    Tax = TAX(Price)
+
+    Id Item Description	Price   Computed Tax
+    -- ---------------- ------- ------------
+     1 A new world		$  2.00       $  .20
+     2 Cool magazine 	$ 17.59       $ 1.76
+
+
+Whitespace
+----------
+
+Extra whitespace surrounding a cell's contents is considered superfluous. That
+is, cells [asdf] and [   asdf] would be considered equivalent.
+
+
+Data types
+----------
+
+The data type of a cell will be inferred by its format. The default format is
+plain text.
+
+Formats:
+
+* Number; e.g. [2000] or [2MM];
+* Currency; e.g. [$ .20]; parameters: currency, negation style, [number format]
+* Datetime;
+* Time spans;
+
+
+Formulae
+--------
+
+In the spirit of always reconstructable data tables, table formulas are always
+denotated out-of-band relative to the cells. Functions are always described in
+the file, to avoid any dependency on the app to reconstruct and verify data.
+
+
